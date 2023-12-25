@@ -17,7 +17,7 @@ class ReactiveFollowGap(Node):
         drive_topic = '/drive'
 
         # TODO: Subscribe to LIDAR
-        self.sub_scan = self.create_subscription(LaserScan, lidarscan_topic, self.scan_callback, 1)
+        self.sub_scan = self.create_subscription(LaserScan, lidarscan_topic, self.lidar_callback, 1)
         
         # TODO: Publish to drive
         self.pub_drive = self.create_publisher(AckermannDriveStamped, drive_topic, 1)
@@ -28,32 +28,32 @@ class ReactiveFollowGap(Node):
             2.Rejecting high values (eg. > 3m)
         """
         ranges[ranges >= 3] = 3
-        proc_ranges = ranges
 
-        return proc_ranges
+        return ranges
 
     def find_max_gap(self, free_space_ranges):
         """ Return the start index & end index of the max gap in free_space_ranges
         """
-        for i in range(len(free_space_ranges))-1:
+        max_gap_index = np.array([0,0])
+        temp = np.array([0,0])
+        for i in range(len(free_space_ranges)-1):
             j = i+1
-            max_gap_index = np.array([0,0])
-            temp = np.array([0,0])
-            if free_space_ranges[0] == 3:
+            
+            if free_space_ranges[0] == 3.0:
                 pass
-            elif free_space_ranges[i] != 3 and free_space_ranges[j] == 3:
+            elif free_space_ranges[i] != 3.0 and free_space_ranges[j] == 3.0:
                 temp[0] = j
-            elif free_space_ranges[i] == 3 and free_space_ranges[j] == 3:
+            elif free_space_ranges[i] == 3.0 and free_space_ranges[j] == 3.0:
                 pass
-            elif free_space_ranges[i] == 3 and free_space_ranges[j] != 3:
+            elif free_space_ranges[i] == 3.0 and free_space_ranges[j] != 3.0:
                 temp[1] = i
                 if temp[1]-temp[0] > max_gap_index[1]-max_gap_index[0]:
                     max_gap_index = temp
-            elif free_space_ranges[-1] == 3:
+            elif free_space_ranges[-1] == 3.0:
                 temp[1] = j
                 if temp[1]-temp[0] > max_gap_index[1]-max_gap_index[0]:
                     max_gap_index = temp
-
+        print(max_gap_index)
         return max_gap_index
     
     def find_best_point(self, start_i, end_i, ranges):
@@ -61,7 +61,8 @@ class ReactiveFollowGap(Node):
         Return index of best point in ranges
 	    Naive: Choose the furthest point within ranges and go there
         """
-        index = ranges[start_i,end_i].argmex() #finds the index that contains max value
+        #index = np.argmax(ranges[start_i:end_i]) #finds the index that contains max value
+        index = int((end_i - start_i) / 2 + start_i) #returnes the middle of the start and end index
         return index
 
     def lidar_callback(self, data):
@@ -100,12 +101,16 @@ class ReactiveFollowGap(Node):
         drive_msg = AckermannDriveStamped()
         drive_msg.drive.steering_angle = angles[best_point_index]
         drive_msg.drive.steering_angle_velocity = 0.0 #Zero means change the steering angle as quickly as possible
-        drive_msg.drive.speed = self.velocity 
+        drive_msg.drive.speed = 2.0 
         self.pub_drive.publish(drive_msg)
+
+        print("stuff")
+        print(best_point_index)
+        
 
 def main(args=None):
     rclpy.init(args=args)
-    print("WallFollow Initialized")
+    print("GapFollow Initialized")
     reactive_node = ReactiveFollowGap()
     rclpy.spin(reactive_node)
 
