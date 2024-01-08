@@ -88,6 +88,7 @@ class SafetyNode(Node):
 
 def main(args=None):
     rclpy.init(args=args)
+    print("Safety Initialized")
     safety_node = SafetyNode()
     rclpy.spin(safety_node)
 
