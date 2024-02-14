@@ -12,10 +12,11 @@
 11. [NVIDIA GPU](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-gpu)
 12. [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch)
 13. [Keyboard Control](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#keyboard-control)
+
 ---
 
 # Labs
-Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
+Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo).
 
 ## Lab 2 - safety_node
 1. Download safety_node.zip and unzip the folder.
@@ -45,9 +46,9 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    
 ## Lab 3 - wall_follow_node
-Download the wall_follow_node zip file from [releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [direct download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow_node.zip)
+Download the wall_follow_node zip file from [releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [direct download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow_node.zip).
 
-Use the same steps as "Lab 2 - safety_node" and run
+Use the same steps as "Lab 2 - safety_node" and run:
 ```
 ros2 run wall_follow wall_follow
 ```
@@ -116,13 +117,13 @@ Download:
 - [Git](https://git-scm.com/downloads)
 
 ## Windows Terminal (Optional for Windows 10)
-[Windows Terminal](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=US)
+This is not required but may provide a better experience with tabs.
 
-This is not required but may provide a better experience with tabs
+Windows Terminal download link: https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=US
 
-Change the default Windows Console to the new Windows Terminal in `Settings > Default terminal application > Windows Terminal`
+Change the default Windows Console to the new Windows Terminal in `Settings > Default terminal application > Windows Terminal`.
 ![image](https://github.com/CPP-F1TENTH-SDP/Labs/assets/135196190/eee20ae6-ea21-4b4d-adf1-49a7aedb8c04)
-Now whenever opening PowerShell, it will use the new Windows Terminal
+Now whenever opening PowerShell, it will use the new Windows Terminal.
 
 ## Non-NVIDIA Install
 1. Open PowerShell/Terminal and run:
@@ -169,7 +170,11 @@ Now whenever opening PowerShell, it will use the new Windows Terminal
    ```
    wsl -l -v
    ```
-5. Start Docker Desktop, open PowerShell/Terminal and run:
+   If Ubuntu-20.04 is "Stopped", restart Docker Desktop.
+   
+   ![image](https://github.com/CPP-F1TENTH-SDP/Labs/assets/135196190/25226792-df76-4f8b-b27e-a302d4b0eb05)
+
+5. Start Docker Desktop (if it isn't already), open PowerShell/Terminal and run:
    ```
    git clone https://github.com/f1tenth/f1tenth_gym_ros
    ```
@@ -225,7 +230,7 @@ Now whenever opening PowerShell, it will use the new Windows Terminal
    ```
    . ~/rocker_venv/bin/activate
    ```
-   This command is based on the assumption that the files in Step 5, are in `C:\Users\<USERNAME>\f1tenth_gym_ros`.
+   This command is based on the assumption that the files from `git clone https://github.com/f1tenth/f1tenth_gym_ros`, are in `C:\Users\<USERNAME>\f1tenth_gym_ros`.
 
    Replace `<USERNAME>` with your Windows username. You can find this by opening PowerShell/Terminal.
    ```
@@ -258,7 +263,7 @@ Now whenever opening PowerShell, it will use the new Windows Terminal
    2 ways to do this is:
    1. Split screen the PowerShell/Terminal and simulation
       
-   OR
+      OR
    
-   2. Maximize the simulation and move the window to a corner.
+   2. Maximize the simulation and move the terminal to a corner.
    
