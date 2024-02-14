@@ -43,6 +43,7 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    ros2 run safety_node safety_node
    ```
+   
 ## Lab 3 - wall_follow_node
 Download the wall_follow_node zip file from [releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [direct download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow_node.zip)
 
@@ -50,6 +51,7 @@ Use the same steps as "Lab 2 - safety_node" and run
 ```
 ros2 run wall_follow wall_follow
 ```
+
 ## Lab 4
 ### Changing Map
 Lab #4 requires a different map compared to the one we use. You can download the new maps on the github repository and place it inside the f1tenth_gym_ros/maps folder. The map has two files for it, make sure to download both.
@@ -102,14 +104,17 @@ To edit the correct one, in Docker Desktop, view files of active container, go t
 ---
 
 # F1TENTH Gym ROS - Install Guide
+
 ## Linux
 For those on Linux, refer to the official f1tenth_gym_ros guide.
 
 https://github.com/f1tenth/f1tenth_gym_ros
+
 ## Prerequisites for Windows 10/11
 Download:
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Git](https://git-scm.com/downloads)
+
 ## Windows Terminal (Optional for Windows 10)
 [Windows Terminal](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=US)
 
@@ -118,6 +123,7 @@ This is not required but may provide a better experience with tabs
 Change the default Windows Console to the new Windows Terminal in `Settings > Default terminal application > Windows Terminal`
 ![image](https://github.com/CPP-F1TENTH-SDP/Labs/assets/135196190/eee20ae6-ea21-4b4d-adf1-49a7aedb8c04)
 Now whenever opening PowerShell, it will use the new Windows Terminal
+
 ## Non-NVIDIA Install
 1. Open PowerShell/Terminal and run:
    ```
@@ -130,6 +136,7 @@ Now whenever opening PowerShell, it will use the new Windows Terminal
    ```
    docker compose up
    ```
+
 ## Non-NVIDIA Launch
 1. Have Docker Desktop running:
    ```
@@ -209,6 +216,7 @@ Now whenever opening PowerShell, it will use the new Windows Terminal
    pip install git+https://github.com/osrf/rocker.git
    ```
    The installation is now complete.
+
 ## NVIDIA Launch
 1. Have Docker Desktop running:
    ```
@@ -249,6 +257,8 @@ Now whenever opening PowerShell, it will use the new Windows Terminal
 
    2 ways to do this is:
    1. Split screen the PowerShell/Terminal and simulation
+      
    OR
+   
    2. Maximize the simulation and move the window to a corner.
    
