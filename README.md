@@ -1,5 +1,21 @@
+### Table of Contents
+1. [Labs](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#labs)
+2. [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node)
+3. [Lab 3 - wall_follow_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-3---wall_follow_node)
+4. [Lab 4](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-4)
+5. [F1TENTH Gym ROS - Install Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#f1tenth-gym-ros---install-guide)
+6. [Linux](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#linux)
+7. [Prerequisites for Windows 10/11](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#prerequisites-for-windows-1011)
+8. [Windows Terminal (Optional for Windows 10)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional-for-windows-10)
+9. [Non-NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-install)
+10. [Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch)
+11. [NVIDIA GPU](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-gpu)
+12. [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch)
+---
+
 # Labs
 Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
+
 ## Lab 2 - safety_node
 1. Download safety_node.zip and unzip the folder.
    
@@ -82,13 +98,18 @@ You may be editing a different .yaml file.
 
 To edit the correct one, in Docker Desktop, view files of active container, go to source, build, f1tenth gym ros, and config. In the `config` folder there is the `sim.yaml` file, edit it and repeat steps 5 & 6. If the lidar sensors (colored walls) is different than the map outline, restart your docker simulator.
 
-
+---
 
 # F1TENTH Gym ROS - Install Guide
+## Linux
+For those on Linux, refer to the official f1tenth_gym_ros guide.
+
+https://github.com/f1tenth/f1tenth_gym_ros
 ## Prerequisites for Windows 10/11
+Download:
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Git](https://git-scm.com/downloads)
-## Windows 10 (Optional)
+## Windows Terminal (Optional for Windows 10)
 [Windows Terminal](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=US)
 
 This is not required but may provide a better experience with tabs
@@ -210,4 +231,23 @@ Now whenever opening PowerShell, it will use the new Windows Terminal
    ```
    ros2 launch f1tenth_gym_ros gym_bridge_launch.py
    ```
+   
+## Keyboard Control
+1. Have the simulation launched and running.
+2. Open another window/tab of PowerShell/Terminal and run:
+   ```
+   source /opt/ros/foxy/setup.bash
+   ```
+   ```
+   source install/local_setup.bash
+   ```
+   ```
+   ros2 run teleop_twist_keyboard teleop_twist_keyboard
+   ```
+2. To use the keyboard, make sure that the window/tab from step 2 is focused.
+
+   2 ways to do this is:
+   1. Split screen the PowerShell/Terminal and simulation
+   OR
+   2. Maximize the simulation and move the window to a corner.
    
