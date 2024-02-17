@@ -47,9 +47,9 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    
 ## Lab 3 - wall_follow_node
-Download the wall_follow_node zip file from [releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [direct download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow_node.zip).
+Download wall_follow_node.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow_node.zip).
 
-Use the same steps as "Lab 2 - safety_node" and run:
+Follow the same steps as [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node) and run:
 ```
 ros2 run wall_follow wall_follow
 ```
