@@ -9,7 +9,7 @@
 8. [Windows Terminal (Optional)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional)
 9. [Non-NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-install)
 10. [Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch)
-11. [NVIDIA GPU](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-gpu)
+11. [NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-install)
 12. [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch)
 13. [Keyboard Control](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#keyboard-control)
 
@@ -155,11 +155,12 @@ Now whenever opening PowerShell, it will use the new Windows Terminal.
    ```
 3. Go to: http://localhost:8080/vnc.html
 
-## NVIDIA GPU Install
-1. This will install WSL and Ubuntu. The install time for Ubuntu will vary depending on internet speed. After Ubuntu is installed, you will be prompted to restart the system.
+## NVIDIA Install
+1. Open PowerShell/Terminal and run:
    ```
    wsl --install
    ```
+   This will install WSL and Ubuntu. The install time for Ubuntu will vary depending on internet speed. After Ubuntu is installed, you will be prompted to restart the system.
 2. Just like step 1, the install of Ubuntu-20.04 will vary with internet speed.
    ```
    wsl.exe --install Ubuntu-20.04
