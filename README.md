@@ -6,7 +6,7 @@
 5. [F1TENTH Gym ROS - Install Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#f1tenth-gym-ros---install-guide)
 6. [Linux](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#linux)
 7. [Prerequisites for Windows 10/11](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#prerequisites-for-windows-1011)
-8. [Windows Terminal (Optional for Windows 10)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional-for-windows-10)
+8. [Windows Terminal (Optional)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional)
 9. [Non-NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-install)
 10. [Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch)
 11. [NVIDIA GPU](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-gpu)
@@ -116,7 +116,7 @@ Download:
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Git](https://git-scm.com/downloads)
 
-## Windows Terminal (Optional for Windows 10)
+## Windows Terminal (Optional)
 This is not required but may provide a better experience with tabs.
 
 Windows Terminal download link: https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=US
