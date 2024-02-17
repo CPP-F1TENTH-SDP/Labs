@@ -155,7 +155,7 @@ Now whenever opening PowerShell, it will use the new Windows Terminal.
    ```
 3. Go to: http://localhost:8080/vnc.html
 
-## NVIDIA GPU
+## NVIDIA GPU Install
 1. This will install WSL and Ubuntu. The install time for Ubuntu will vary depending on internet speed. After Ubuntu is installed, you will be prompted to restart the system.
    ```
    wsl --install
