@@ -23,9 +23,10 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    
    [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab2) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab2/safety_node.zip)
 2. Launch the simulation.
-3. Docker - Go to sim 1 container and click on the vertical ellipsis to find files.
-   Rocker - Go to the active container and click on the vertical ellipsis to find files.
-4. At the file location, find the folder `sim_ws`.
+3. Docker - Go to sim 1 container and click on the vertical ellipsis then "View Files".
+
+   Rocker - Go to the active container and click on the vertical ellipsis then "View Files".
+4. Under "Files", find the folder `sim_ws`.
 5. In `sim_ws`, there is a folder named `src`.
    Drag & drop the unzipped safety_node folder into the `src` folder.
    
