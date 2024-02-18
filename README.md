@@ -1,7 +1,7 @@
 ### Table of Contents
 1. [Labs](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#labs)
-2. [Non-NVIDIA Node Launch Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-node-launch-guide)
-3. [NVIDIA Node Launch Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-node-launch-guide)
+2. [Non-NVIDIA Node Launch ](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-node-launch)
+3. [NVIDIA Node Launch ](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-node-launch)
 4. [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node)
 5. [Lab 3 - wall_follow](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-3---wall_follow)
 6. [Lab 4 - gap_follow](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-4---gap_follow)
