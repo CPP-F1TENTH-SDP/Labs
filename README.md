@@ -124,6 +124,11 @@ ros2 run wall_follow wall_follow
 ## Lab 4 - gap_follow (INCOMPLETE)
 Download gap_follow.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab4) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab4/gap_follow.zip).
 
+Run using:
+```
+ros2 run gap_follow reactive_node
+```
+
 ### Changing Map
 Lab #4 requires a different map compared to the one we use. You can download the new maps on the github repository and place it inside the f1tenth_gym_ros/maps folder. The map has two files for it, make sure to download both.
 
