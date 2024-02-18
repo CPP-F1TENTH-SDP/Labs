@@ -2,18 +2,18 @@
 1. [Labs](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#labs)
 2. [Non-NVIDIA Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-node-launch)
 3. [NVIDIA Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-node-launch)
-4. [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node)
-5. [Lab 3 - wall_follow](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-3---wall_follow)
-6. [Lab 4 - gap_follow](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-4---gap_follow)
-7. [F1TENTH Gym ROS - Install Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#f1tenth-gym-ros---install-guide)
-8. [Linux](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#linux)
-9. [Prerequisites for Windows 10/11](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#prerequisites-for-windows-1011)
-10. [Windows Terminal (Optional)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional)
-11. [Non-NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-install)
-12. [Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch)
-13. [NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-install)
-14. [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch)
-15. [Keyboard Control](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#keyboard-control)
+4. [Keyboard Control](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#keyboard-control)
+5. [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node)
+6. [Lab 3 - wall_follow](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-3---wall_follow)
+7. [Lab 4 - gap_follow](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-4---gap_follow)
+8. [F1TENTH Gym ROS - Install Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#f1tenth-gym-ros---install-guide)
+9. [Linux](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#linux)
+10. [Prerequisites for Windows 10/11](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#prerequisites-for-windows-1011)
+11. [Windows Terminal (Optional)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional)
+12. [Non-NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-install)
+13. [Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch)
+14. [NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-install)
+15. [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch)
 
 ---
 
@@ -100,6 +100,27 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
     ```
     ros2 run <node> <node>
     ```
+
+## Keyboard Control
+1. Have the simulation launched and running.
+2. Open another window/tab of PowerShell/Terminal and run:
+   ```
+   source /opt/ros/foxy/setup.bash
+   ```
+   ```
+   source install/local_setup.bash
+   ```
+   ```
+   ros2 run teleop_twist_keyboard teleop_twist_keyboard
+   ```
+2. To use the keyboard, make sure that the window/tab from step 2 is focused.
+
+   2 ways to do this is:
+   1. Split screen the PowerShell/Terminal and simulation
+      
+      OR
+   
+   2. Maximize the simulation and move the terminal to a corner.
 
 ## Lab 2 - safety_node
 For Node Launch above, `<node>` is replaced with `safety_node`.
@@ -323,25 +344,3 @@ Now whenever opening PowerShell, it will use the new Windows Terminal.
    ```
    ros2 launch f1tenth_gym_ros gym_bridge_launch.py
    ```
-   
-## Keyboard Control
-1. Have the simulation launched and running.
-2. Open another window/tab of PowerShell/Terminal and run:
-   ```
-   source /opt/ros/foxy/setup.bash
-   ```
-   ```
-   source install/local_setup.bash
-   ```
-   ```
-   ros2 run teleop_twist_keyboard teleop_twist_keyboard
-   ```
-2. To use the keyboard, make sure that the window/tab from step 2 is focused.
-
-   2 ways to do this is:
-   1. Split screen the PowerShell/Terminal and simulation
-      
-      OR
-   
-   2. Maximize the simulation and move the terminal to a corner.
-   
