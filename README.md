@@ -23,15 +23,18 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    
    [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab2) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab2/safety_node.zip)
 2. Launch the simulation.
-3. Docker - Go to sim 1 container and click on the vertical ellipsis then "View Files".
-
-   Rocker - Go to the active container and click on the vertical ellipsis then "View Files".
-4. Under "Files", find the folder `sim_ws`.
-5. In `sim_ws`, there is a folder named `src`.
+3. Non-NVIDIA: In Docker Desktop, go to sim 1 container and click on the vertical ellipsis then "View Files".
+ 
+   NVIDIA: In Docker Desktop, go to the active container and click on the vertical ellipsis then "View Files".
+   
+   **Note for NVIDIA: Docker container self-destructs after closing sim, you'll have to drag & drop the node folder into `src` each time.**
+   
+5. Under "Files", find the folder `sim_ws`.
+6. In `sim_ws`, there is a folder named `src`.
    Drag & drop the unzipped safety_node folder into the `src` folder.
    
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
-6. Open another PowerShell/Terminal and run:
+7. Open another PowerShell/Terminal and run:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -41,7 +44,14 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    colcon build
    ```
-7. Run safety_node using:
+8. Rerun:
+   ```
+   source /opt/ros/foxy/setup.bash
+   ```
+   ```
+   source install/local_setup.bash
+   ```
+9. Then, run safety_node using:
    ```
    ros2 run safety_node safety_node
    ```
