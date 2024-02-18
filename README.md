@@ -23,12 +23,11 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
 ## Non-NVIDIA Node Launch
 1. Download `<node>`.zip and unzip the folder.
 2. Launch the simulation. ([Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch))
-3. In Docker Desktop, go to sim 1 container and click on the vertical ellipsis, then "View Files".
-4. Under "Files", find the folder `sim_ws`.
-5. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
+3. In Docker Desktop, go to sim 1 container and click on the vertical ellipsis, then "View Files". Under "Files", find the folder `sim_ws`.
+4. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
 
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
-6. Open another PowerShell/Terminal and run:
+5. Open another PowerShell/Terminal and run:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -38,14 +37,14 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    colcon build
    ```
-7. Rerun:
+6. Rerun:
    ```
    source /opt/ros/foxy/setup.bash
    ```
    ```
    source install/local_setup.bash
    ```
-8. Then, run `<node>` using:
+7. Then, run `<node>` using:
    ```
    ros2 run <node> <node>
    ```
@@ -125,7 +124,7 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
 ## Lab 2 - safety_node
 For Node Launch above, `<node>` is replaced with `safety_node`.
 
-Download safety_node.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab2) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab2/safety_node.zip)
+Download safety_node.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab2-v1.0) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab2-v1.0/safety_node.zip)
 
 Run using:
 ```
@@ -135,7 +134,7 @@ ros2 run safety_node safety_node
 ## Lab 3 - wall_follow
 For Node Launch above, `<node>` is replaced with `wall_follow`.
 
-Download wall_follow.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow.zip).
+Download wall_follow.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3-v1.0) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3-v1.0/wall_follow.zip).
 
 Run using:
 ```
@@ -145,7 +144,7 @@ ros2 run wall_follow wall_follow
 ## Lab 4 - gap_follow
 ⚠️**INCOMPLETE**⚠️
 
-Download gap_follow.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab4) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab4/gap_follow.zip).
+Download gap_follow.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab4-v1.0) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab4-v1.0/gap_follow.zip).
 
 Run using:
 ```
