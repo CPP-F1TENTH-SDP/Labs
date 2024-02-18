@@ -65,7 +65,7 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
 4. After `tmux`, hit `CTRL + B, then C`. You now have 2 bash instances.
 
    _Note: For tmux, don't use CTRL for the key after 'then'._
-5. Hit `CTRL + B, then P`, launch the simulation using:
+5. Hit `CTRL + B, then P` (it should be in bash 0). Launch the simulation using:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -79,7 +79,7 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
 7. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
     
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
-8. Hit `CTRL + B, then N` & run:
+8. Hit `CTRL + B, then N` (it should be in bash 1) & run:
    ```
    source /opt/ros/foxy/setup.bash
    ```
