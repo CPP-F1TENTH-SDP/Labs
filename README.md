@@ -121,7 +121,9 @@ Run using:
 ros2 run wall_follow wall_follow
 ```
 
-## Lab 4 - gap_follow (INCOMPLETE)
+## Lab 4 - gap_follow
+⚠️**INCOMPLETE**⚠️
+
 Download gap_follow.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab4) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab4/gap_follow.zip).
 
 Run using:
