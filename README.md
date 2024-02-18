@@ -64,7 +64,7 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
 4. After `tmux`, hit `CTRL + B, then C`. You now have 2 bash instances.
 
-   _Note: For tmux, don't use CTRL for the key after 'then'._
+   _Note: For tmux, don't use CTRL for the key after 'then'. More commands visit: https://tmuxcheatsheet.com/_
 5. Hit `CTRL + B, then P` (it should be in bash 0). Launch the simulation using:
    ```
    source /opt/ros/foxy/setup.bash
