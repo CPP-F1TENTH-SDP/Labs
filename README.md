@@ -9,7 +9,7 @@
 8. [Windows Terminal (Optional)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional)
 9. [Non-NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-install)
 10. [Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch)
-11. [NVIDIA GPU](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-gpu)
+11. [NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-install)
 12. [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch)
 13. [Keyboard Control](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#keyboard-control)
 
@@ -23,15 +23,18 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    
    [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab2) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab2/safety_node.zip)
 2. Launch the simulation.
-3. Docker - Go to sim 1 container and click on the vertical ellipsis then "View Files".
-
-   Rocker - Go to the active container and click on the vertical ellipsis then "View Files".
-4. Under "Files", find the folder `sim_ws`.
-5. In `sim_ws`, there is a folder named `src`.
+3. Non-NVIDIA: In Docker Desktop, go to sim 1 container and click on the vertical ellipsis then "View Files".
+ 
+   NVIDIA: In Docker Desktop, go to the active container and click on the vertical ellipsis then "View Files".
+   
+   **Note for NVIDIA: Docker container self-destructs after closing sim, you'll have to drag & drop the node folder into `src` each time.**
+   
+5. Under "Files", find the folder `sim_ws`.
+6. In `sim_ws`, there is a folder named `src`.
    Drag & drop the unzipped safety_node folder into the `src` folder.
    
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
-6. Open another PowerShell/Terminal and run:
+7. Open another PowerShell/Terminal and run:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -41,15 +44,22 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    colcon build
    ```
-7. Run safety_node using:
+8. Rerun:
+   ```
+   source /opt/ros/foxy/setup.bash
+   ```
+   ```
+   source install/local_setup.bash
+   ```
+9. Then, run safety_node using:
    ```
    ros2 run safety_node safety_node
    ```
    
 ## Lab 3 - wall_follow_node
-Download the wall_follow_node zip file from [releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [direct download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow_node.zip).
+Download wall_follow_node.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow_node.zip).
 
-Use the same steps as "Lab 2 - safety_node" and run:
+Follow the same steps as [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node) and run:
 ```
 ros2 run wall_follow wall_follow
 ```
@@ -155,11 +165,12 @@ Now whenever opening PowerShell, it will use the new Windows Terminal.
    ```
 3. Go to: http://localhost:8080/vnc.html
 
-## NVIDIA GPU
-1. This will install WSL and Ubuntu. The install time for Ubuntu will vary depending on internet speed. After Ubuntu is installed, you will be prompted to restart the system.
+## NVIDIA Install
+1. Open PowerShell/Terminal and run:
    ```
    wsl --install
    ```
+   This will install WSL and Ubuntu. The install time for Ubuntu will vary depending on internet speed. After Ubuntu is installed, you will be prompted to restart the system.
 2. Just like step 1, the install of Ubuntu-20.04 will vary with internet speed.
    ```
    wsl.exe --install Ubuntu-20.04
