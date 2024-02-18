@@ -1,40 +1,34 @@
 ### Table of Contents
 1. [Labs](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#labs)
-2. [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node)
-3. [Lab 3 - wall_follow_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-3---wall_follow_node)
-4. [Lab 4](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-4)
-5. [F1TENTH Gym ROS - Install Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#f1tenth-gym-ros---install-guide)
-6. [Linux](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#linux)
-7. [Prerequisites for Windows 10/11](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#prerequisites-for-windows-1011)
-8. [Windows Terminal (Optional)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional)
-9. [Non-NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-install)
-10. [Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch)
-11. [NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-install)
-12. [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch)
-13. [Keyboard Control](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#keyboard-control)
+2. [Non-NVIDIA Node Launch Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-node-launch-guide)
+3. [NVIDIA Node Launch Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-node-launch-guide)
+4. [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node)
+5. [Lab 3 - wall_follow](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-3---wall_follow)
+6. [Lab 4 - gap_follow](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-4---gap_follow)
+7. [F1TENTH Gym ROS - Install Guide](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#f1tenth-gym-ros---install-guide)
+8. [Linux](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#linux)
+9. [Prerequisites for Windows 10/11](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#prerequisites-for-windows-1011)
+10. [Windows Terminal (Optional)](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#windows-terminal-optional)
+11. [Non-NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-install)
+12. [Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch)
+13. [NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-install)
+14. [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch)
+15. [Keyboard Control](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#keyboard-control)
 
 ---
 
 # Labs
 Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo).
 
-## Lab 2 - safety_node
-1. Download safety_node.zip and unzip the folder.
-   
-   [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab2) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab2/safety_node.zip)
-2. Launch the simulation.
-3. Non-NVIDIA: In Docker Desktop, go to sim 1 container and click on the vertical ellipsis then "View Files".
- 
-   NVIDIA: In Docker Desktop, go to the active container and click on the vertical ellipsis then "View Files".
-   
-   **Note for NVIDIA: Docker container self-destructs after closing sim, you'll have to drag & drop the node folder into `src` each time.**
-   
-5. Under "Files", find the folder `sim_ws`.
-6. In `sim_ws`, there is a folder named `src`.
-   Drag & drop the unzipped safety_node folder into the `src` folder.
-   
+## Non-NVIDIA Node Launch Guide
+1. Download `<node>`.zip and unzip the folder.
+2. Launch the simulation. ([Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch))
+3. In Docker Desktop, go to sim 1 container and click on the vertical ellipsis, then "View Files".
+4. Under "Files", find the folder `sim_ws`.
+5. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
+
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
-7. Open another PowerShell/Terminal and run:
+6. Open another PowerShell/Terminal and run:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -44,27 +38,97 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    colcon build
    ```
-8. Rerun:
+7. Rerun:
    ```
    source /opt/ros/foxy/setup.bash
    ```
    ```
    source install/local_setup.bash
    ```
-9. Then, run safety_node using:
+8. Then, run `<node>` using:
    ```
-   ros2 run safety_node safety_node
+   ros2 run <node> <node>
    ```
    
-## Lab 3 - wall_follow_node
-Download wall_follow_node.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow_node.zip).
+## NVIDIA Node Launch Guide
+**_Note: Docker container self-destructs after closing sim, you'll have to drag & drop the `<node>` folder into `src` each time._**
 
-Follow the same steps as [Lab 2 - safety_node](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#lab-2---safety_node) and run:
+1. Download `<node>`.zip and unzip the folder.
+2. Open a PowerShell/Terminal and follow [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch), **STOP** after:
+   ```
+   rocker --nvidia --x11 --volume .:/sim_ws/src/f1tenth_gym_ros/Users/<USERNAME>/f1tenth_gym_ros -- f1tenth_gym_ros
+   ```
+3. Run:
+   ```
+   tmux
+   ```
+4. After `tmux`, hit `CTRL + B, then C`. You now have 2 bash instances.
+
+   _Note: For tmux, don't use CTRL for the key after 'then'._
+5. Hit `CTRL + B, then P` (it should be in bash 0). Launch the simulation using:
+   ```
+   source /opt/ros/foxy/setup.bash
+   ```
+   ```
+   source install/local_setup.bash
+   ```
+   ```
+   ros2 launch f1tenth_gym_ros gym_bridge_launch.py
+   ```
+6. In Docker Desktop, go to the active container and click on the vertical ellipsis, then "View Files". Under "Files", find the folder `sim_ws`.
+7. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
+    
+   **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
+8. Hit `CTRL + B, then N` (it should be in bash 1) & run:
+   ```
+   source /opt/ros/foxy/setup.bash
+   ```
+   ```
+   source install/local_setup.bash
+   ```
+   ```
+   colcon build
+   ```
+9. Rerun:
+   ```
+   source /opt/ros/foxy/setup.bash
+   ```
+   ```
+   source install/local_setup.bash
+   ```
+10. Then, run `<node>` using:
+    ```
+    ros2 run <node> <node>
+    ```
+
+## Lab 2 - safety_node
+Using the Node Launch Guides above `<node>` is replaced with `safety_node`.
+
+Download safety_node.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab2) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab2/safety_node.zip)
+
+Run using:
+```
+ros2 run safety_node safety_node
+```
+
+## Lab 3 - wall_follow
+Using the Node Launch Guides above `<node>` is replaced with `wall_follow`.
+
+Download wall_follow.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab3) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab3/wall_follow.zip).
+
+Run using:
 ```
 ros2 run wall_follow wall_follow
 ```
 
-## Lab 4
+## Lab 4 - gap_follow (INCOMPLETE)
+Download gap_follow.zip from [Releases](https://github.com/CPP-F1TENTH-SDP/Labs/releases/tag/lab4) or [Direct Download](https://github.com/CPP-F1TENTH-SDP/Labs/releases/download/lab4/gap_follow.zip).
+
+Run using:
+```
+ros2 run gap_follow reactive_node
+```
+
 ### Changing Map
 Lab #4 requires a different map compared to the one we use. You can download the new maps on the github repository and place it inside the f1tenth_gym_ros/maps folder. The map has two files for it, make sure to download both.
 
