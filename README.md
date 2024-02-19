@@ -336,9 +336,10 @@ Now whenever opening PowerShell, it will use the new Windows Terminal.
    This command is based on the assumption that the files from `git clone https://github.com/f1tenth/f1tenth_gym_ros`, are in `C:\Users\<USERNAME>\f1tenth_gym_ros`.
    
 8. Close the PowerShell/Terminal window and go to Docker Desktop. When navigating to the "Containers" tab, you should see a new container with a generated name and an alphanumeric string below that. Click into that container, and copy the alphanumeric string.
+
    ![image](https://github.com/CPP-F1TENTH-SDP/Labs/assets/135196190/f3a5d51a-ff55-4bc3-8adb-8031aa9ae6e6)
 
-9. Open a new PowerShell/Terminal and run:
+10. Open a new PowerShell/Terminal and run:
 
    Replace `<alphanumeric #>` with what you copied in the previous step.
    ```
