@@ -69,10 +69,10 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    tmux
    ```
-5. After `tmux`, hit `CTRL + B, then C`. You now have 2 bash instances.
+4. After `tmux`, hit `CTRL + B, then C`. You now have 2 bash instances.
 
    _Note: For tmux, don't use CTRL for the key after 'then'. More commands visit: https://tmuxcheatsheet.com/_
-6. Hit `CTRL + B, then P` (it should be in bash 0). Launch the simulation using:
+5. Hit `CTRL + B, then P` (it should be in bash 0). Launch the simulation using:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -82,11 +82,11 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    ros2 launch f1tenth_gym_ros gym_bridge_launch.py
    ```
-7. In Docker Desktop, go to `f1tenth_gym` container and click on the vertical ellipsis, then "View Files". Under "Files", find the folder `sim_ws`.
-8. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
+6. In Docker Desktop, go to `f1tenth_gym` container and click on the vertical ellipsis, then "View Files". Under "Files", find the folder `sim_ws`.
+7. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
     
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
-9. Hit `CTRL + B, then N` (it should be in bash 1) & run:
+8. Hit `CTRL + B, then N` (it should be in bash 1) & run:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -96,18 +96,18 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    colcon build
    ```
-10. Rerun:
+9. Rerun:
    ```
    source /opt/ros/foxy/setup.bash
    ```
    ```
    source install/local_setup.bash
    ```
-11. Then, run `<node>` using:
+10. Then, run `<node>` using:
     ```
     ros2 run <node> <node>
     ```
-To stop using a node, you'll have to restart the `f1tenth_gym` container. Then repeat the steps above.
+To stop using a node, you'll have to restart the `f1tenth_gym` container.
 
 ## Keyboard Control
 1. Have the simulation launched and running.
