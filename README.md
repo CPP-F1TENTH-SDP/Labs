@@ -23,7 +23,7 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
 ## Non-NVIDIA Node Launch
 1. Download `<node>`.zip and unzip the folder.
 2. Launch the simulation. ([Non-NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-launch))
-3. In Docker Desktop, go to sim 1 container and click on the vertical ellipsis, then "View Files".
+3. In Docker Desktop, go to `sim-1` container and click on the vertical ellipsis, then "View Files".
 4. Under "Files", find the folder `sim_ws`.
 5. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
 
@@ -77,7 +77,7 @@ _Note 2: If Note 1 was not completed, Docker container self-destructs after clos
    ```
    ros2 launch f1tenth_gym_ros gym_bridge_launch.py
    ```
-6. In Docker Desktop, go to the active container and click on the vertical ellipsis, then "View Files". Under "Files", find the folder `sim_ws`.
+6. In Docker Desktop, go to `f1tenth_gym` container and click on the vertical ellipsis, then "View Files". Under "Files", find the folder `sim_ws`.
 7. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
     
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
