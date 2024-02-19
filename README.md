@@ -53,7 +53,7 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
 ## NVIDIA Node Launch
 **_Note 1: Complete steps 6, 7, 8 of [NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-install) to create a persistent container._**
 
-_Note 2: If Note 1 was not completed, Docker container self-destructs after closing sim, and you'll have to drag & drop the `<node>` folder into `src` every time._
+**_Note 2: If Note 1 was not completed, Docker container self-destructs after closing sim, and you'll have to drag & drop the `<node>` folder into `src` every time._**
 
 1. Download `<node>`.zip and unzip the folder.
 2. Open a PowerShell/Terminal and follow [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch), **STOP** after:
@@ -102,6 +102,7 @@ _Note 2: If Note 1 was not completed, Docker container self-destructs after clos
     ```
     ros2 run <node> <node>
     ```
+To stop using a node, you'll have to restart the `f1tenth_gym` container. Then repeat the steps above.
 
 ## Keyboard Control
 1. Have the simulation launched and running.
