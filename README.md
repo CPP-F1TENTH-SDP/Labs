@@ -339,7 +339,7 @@ Now whenever opening PowerShell, it will use the new Windows Terminal.
 
    ![image](https://github.com/CPP-F1TENTH-SDP/Labs/assets/135196190/f3a5d51a-ff55-4bc3-8adb-8031aa9ae6e6)
 
-10. Open a new PowerShell/Terminal and run:
+9. Open a new PowerShell/Terminal and run:
 
    Replace `<alphanumeric #>` with what you copied in the previous step.
    ```
