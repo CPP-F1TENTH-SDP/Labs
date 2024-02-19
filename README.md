@@ -30,6 +30,9 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
 6. Open another PowerShell/Terminal and run:
    ```
+   docker exec -it f1tenth_gym_ros-sim-1 /bin/bash
+   ```
+   ```
    source /opt/ros/foxy/setup.bash
    ```
    ```
@@ -38,14 +41,14 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    colcon build
    ```
-7. Rerun:
+8. Rerun:
    ```
    source /opt/ros/foxy/setup.bash
    ```
    ```
    source install/local_setup.bash
    ```
-8. Then, run `<node>` using:
+9. Then, run `<node>` using:
    ```
    ros2 run <node> <node>
    ```
