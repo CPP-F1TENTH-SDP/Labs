@@ -63,14 +63,16 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    docker exec -it f1tenth_gym /bin/bash
    ```
-3. Run:
+3. `tmux` is optional, you can follow [Non-NVIDIA Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#non-nvidia-node-launch) instead.
+
+   Run:
    ```
    tmux
    ```
-4. After `tmux`, hit `CTRL + B, then C`. You now have 2 bash instances.
+5. After `tmux`, hit `CTRL + B, then C`. You now have 2 bash instances.
 
    _Note: For tmux, don't use CTRL for the key after 'then'. More commands visit: https://tmuxcheatsheet.com/_
-5. Hit `CTRL + B, then P` (it should be in bash 0). Launch the simulation using:
+6. Hit `CTRL + B, then P` (it should be in bash 0). Launch the simulation using:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -80,11 +82,11 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    ros2 launch f1tenth_gym_ros gym_bridge_launch.py
    ```
-6. In Docker Desktop, go to `f1tenth_gym` container and click on the vertical ellipsis, then "View Files". Under "Files", find the folder `sim_ws`.
-7. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
+7. In Docker Desktop, go to `f1tenth_gym` container and click on the vertical ellipsis, then "View Files". Under "Files", find the folder `sim_ws`.
+8. In `sim_ws`, there is a folder named `src`. Drag & drop the unzipped <node> folder into the `src` folder.
     
    **Be sure that you are dragging the _folder_ into `src` and not the contents of the folder.**
-8. Hit `CTRL + B, then N` (it should be in bash 1) & run:
+9. Hit `CTRL + B, then N` (it should be in bash 1) & run:
    ```
    source /opt/ros/foxy/setup.bash
    ```
@@ -94,14 +96,14 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    colcon build
    ```
-9. Rerun:
+10. Rerun:
    ```
    source /opt/ros/foxy/setup.bash
    ```
    ```
    source install/local_setup.bash
    ```
-10. Then, run `<node>` using:
+11. Then, run `<node>` using:
     ```
     ros2 run <node> <node>
     ```
