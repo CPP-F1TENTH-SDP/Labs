@@ -51,12 +51,14 @@ Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo)
    ```
    
 ## NVIDIA Node Launch
-**_Note: Docker container self-destructs after closing sim, you'll have to drag & drop the `<node>` folder into `src` each time._**
+**_Note 1: Complete steps 6, 7, 8 of [NVIDIA Install](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-install) to create a persistent container._**
+
+_Note 2: If Note 1 was not completed, Docker container self-destructs after closing sim, and you'll have to drag & drop the `<node>` folder into `src` every time._
 
 1. Download `<node>`.zip and unzip the folder.
 2. Open a PowerShell/Terminal and follow [NVIDIA Launch](https://github.com/CPP-F1TENTH-SDP/Labs/tree/main?tab=readme-ov-file#nvidia-launch), **STOP** after:
    ```
-   rocker --nvidia --x11 --volume .:/sim_ws/src/f1tenth_gym_ros/Users/<USERNAME>/f1tenth_gym_ros -- f1tenth_gym_ros
+   docker exec -it f1tenth_gym /bin/bash
    ```
 3. Run:
    ```
@@ -237,7 +239,7 @@ Now whenever opening PowerShell, it will use the new Windows Terminal.
    ```
 
 ## Non-NVIDIA Launch
-1. Have Docker Desktop running:
+1. Launch Docker Desktop and start the `f1tenth_gym_ros` container, then run:
    ```
    docker exec -it f1tenth_gym_ros-sim-1 /bin/bash
    ```
@@ -319,23 +321,38 @@ Now whenever opening PowerShell, it will use the new Windows Terminal.
    ```
    pip install git+https://github.com/osrf/rocker.git
    ```
-   The installation is now complete.
-
-## NVIDIA Launch
-1. Have Docker Desktop running:
+7. Open another PowerShell/Terminal:
    ```
    bash
    ```
    ```
    . ~/rocker_venv/bin/activate
    ```
-   This command is based on the assumption that the files from `git clone https://github.com/f1tenth/f1tenth_gym_ros`, are in `C:\Users\<USERNAME>\f1tenth_gym_ros`.
-
    Replace `<USERNAME>` with your Windows username. You can find this by opening PowerShell/Terminal.
    ```
-   rocker --nvidia --x11 --volume .:/sim_ws/src/f1tenth_gym_ros/Users/<USERNAME>/f1tenth_gym_ros -- f1tenth_gym_ros
+   rocker --nocleanup --nvidia --x11 --volume .:/sim_ws/src/f1tenth_gym_ros/Users/<USERNAME>/f1tenth_gym_ros -- f1tenth_gym_ros
    ```
-3. ```
+   This command is based on the assumption that the files from `git clone https://github.com/f1tenth/f1tenth_gym_ros`, are in `C:\Users\<USERNAME>\f1tenth_gym_ros`.
+   
+8. Close the PowerShell/Terminal window and go to Docker Desktop. When navigating to the "Containers" tab, you should see a new container with a generated name and an alphanumeric string below that. Click into that container, and copy the alphanumeric string.
+   ![image](https://github.com/CPP-F1TENTH-SDP/Labs/assets/135196190/f3a5d51a-ff55-4bc3-8adb-8031aa9ae6e6)
+
+9. Open a new PowerShell/Terminal and run:
+
+   Replace `<alphanumeric #>` with what you copied in the previous step.
+   ```
+   docker rename <alphanumeric #> f1tenth_gym
+   ```   
+   This will rename the generated container name to `f1tenth_gym`.
+
+You are now done with the installation.
+
+## NVIDIA Launch
+1. Launch Docker Desktop and start the `f1tenth_gym` container, then run:
+   ```
+   docker exec -it f1tenth_gym /bin/bash
+   ```
+2. ```
    source /opt/ros/foxy/setup.bash
    ```
    ```
