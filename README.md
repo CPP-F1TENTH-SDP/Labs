@@ -1,5 +1,3 @@
-An example of where the code for each package is located: `safety_node\safety_node\safety_node.py`.
-
 ## Labs
 Lab assignments from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo).
 
