@@ -1,103 +1,116 @@
 #!/usr/bin/env python3
+
+import numpy as np
+
 import rclpy
 from rclpy.node import Node
 
-import numpy as np
-# TODO: include needed ROS msg type headers and libraries
 from sensor_msgs.msg import LaserScan
 from nav_msgs.msg import Odometry
-from ackermann_msgs.msg import AckermannDriveStamped, AckermannDrive
+from ackermann_msgs.msg import AckermannDriveStamped
+
 
 class SafetyNode(Node):
     """
-    The class that handles emergency braking.
+    ROS2 node for emergency braking.
+
+    Subscribes to laser scan data and odometry info to detect obstacles and calculate time to collision (TTC).
+    If we calculate a TTC to some object that is under the specified time before breaking (TBB), the node will publish
+    a command to stop the ego car to prevent collision.
+
+    Subscribing to:
+        scan (type sensor_msgs.msg.LaserScan)
+        ego_racecar/odom (type nav_msgs.msg.Odometry)
+
+    Publishing to:
+        drive (type ackermann_msgs.msg.AckermannDriveStamped)
     """
+
     def __init__(self):
+        """
+        Called at initialization of the class.
+
+        Calls init from parent class to initialize node with name 'safety_node', and initializes the velocity,
+        minimum TTC before breaking, subscriptions, and publisher members.
+        """
         super().__init__('safety_node')
-        """
-        One publisher should publish to the /drive topic with a AckermannDriveStamped drive message.
 
-        You should also subscribe to the /scan topic to get the LaserScan messages and
-        the /ego_racecar/odom topic to get the current speed of the vehicle.
+        self.velocity = 0.0
+        self.tbb = 0.9
 
-        The subscribers should use the provided odom_callback and scan_callback as callback methods
+        self.create_subscription(LaserScan, 'scan', self.scan_callback, 1)
+        self.create_subscription(Odometry, 'ego_racecar/odom', self.odom_callback, 1)
 
-        NOTE that the x component of the linear velocity in odom is the speed
-        """
-        self.Ack = AckermannDriveStamped()
-        self.odm = Odometry()
-        self.speed = 0
-        self.TBC = 0.7 #Time Before Collison is 0.5 s
-        # TODO: create ROS subscribers and publishers.
-
-        self.sub_scan = self.create_subscription(LaserScan, 'scan', self.scan_callback, 1)
-        self.sub_odom = self.create_subscription(Odometry, 'ego_racecar/odom', self.odom_callback, 1)
         self.pub_drive = self.create_publisher(AckermannDriveStamped, 'drive', 1)
-        
+
     def odom_callback(self, odom_msg):
-        # TODO: update current speed
-        # only need x
-        # y and z dont have values
-        self.speed = odom_msg.twist.twist.linear.x
+        """
+        Called every time a new message is received from ego_racecar/odom topic.
+
+        Extracts velocity of car in forward (positive) and backward (negative) direction.
+
+        From odom_msg:
+            odom_msg.twist.twist.linear.x (float) (varies)
+        """
+        self.velocity = odom_msg.twist.twist.linear.x
 
     def scan_callback(self, scan_msg):
-        # TODO: calculate TTC
-        # TTC = range / max(range_rate, 0)
-        # range (Note: values < range_min or > range_max should be discarded)
-        # Don't forget to deal with infs or nans in your arrays
-        # range_rate = speed * cos(theta)
-        #angle min=-2.35 max=2.35
-        
-        range_temp = np.array([], dtype=np.float32)
-        range_temp = scan_msg.ranges
-        ranges = np.array([], dtype=np.float32)
-        theta = np.array([], dtype=np.float32)
-        #error_ranges = np.array([], dtype=np.float32)
-        #error_theta = np.array([], dtype=np.float32)
-        range_rate = np.array([], dtype=np.float32)
-        self.TTC = np.array([], dtype=np.float32)
+        """
+        Called every time a new message is received from scan topic.
 
+        Calculates TTC between ego car and the nearby areas in the environment. When theta = 0 rad, then
+        the corresponding area is directly in front of the car. LaserScan gives a total view of about 6pi/4 radians
+        around the car (about 3pi/4 to one side and 3pi/4 to the other).
+
+        First, the valid distances are extracted and the angles for each are calculated.
+        Next, the range rates are calculated (the max range rate is always at np.cos(0), as that is directly in
+        front of the car). Finally, the time to collision for each valid nearby area is calculated (ttcs), and
+        if the smallest value in the ttcs array is less than self.tbb, then signal the ego car to stop.
+
+        From scan_msg:
+            scan_msg.ranges (array) (varies)
+            scan_msg.range_min (float) = 0.0
+            scan_msg.range_max (float) = 30.0
+            scan_msg.angle_min (float) ~= -2.35 ~= -3pi/4
+            scan_msg.angle_max (float) ~= 2.35 ~= 3pi/4
+            scan_msg.angle_increment (float) ~= 0.00435
+
+        range_rate_min: The minimum value any range_rate can be to calculate ttcs. Removes problems due to dividing
+                        by numbers very close to zero.
+        """
+        ranges = np.array(scan_msg.ranges)
         range_min = scan_msg.range_min
-        range_max = scan_msg.range_max + 0.1
-        range_nan = np.isnan(range_temp)
-        range_inf = np.isinf(range_temp)
-        
-        for i in range(len(range_temp)): 
-            if range_temp[i] < range_min or range_temp[i] > range_max or range_nan[i] == True or range_inf[i] == True:
-                pass
-            else:
-                ranges = np.append(ranges, [range_temp[i]]) # m
-                theta = np.append(theta, [scan_msg.angle_min + i * scan_msg.angle_increment]) # radians
-        
-        range_rate = np.dot(self.speed, np.cos(theta)) # m/s
-        range_rate[range_rate < 0] = 0 # max(range_rate, 0)
+        range_max = scan_msg.range_max
+        angle_min = scan_msg.angle_min
+        angle_inc = scan_msg.angle_increment
+        range_rate_min = 1e-4
 
-        #self.TTC = np.divide(ranges, range_rate, out=np.zeros_like(ranges), where=range_rate!=0) # s
-        with np.errstate(divide = 'ignore', invalid = 'ignore'): # this is a better way to divide when you need to divide by 0
-            self.TTC = np.true_divide(ranges, range_rate)
-            self.TTC[self.TTC == np.inf] = 0
-            self.TTC = np.nan_to_num(self.TTC)
-            
-        self.TTC[self.TTC == 0] = 100 #this is to ignore all valuse of zero without removing them from the array
-        
-        # TODO: publish brake message and publish controller bool
-        if np.min(self.TTC) <= self.TBC: 
-            self.Ack.drive.speed = 0.0 
-            self.pub_drive.publish(self.Ack)
-            print("stop")
+        ranges = np.where((ranges < range_min) | (ranges > range_max) | np.isnan(ranges) | np.isinf(ranges), 0, ranges)
+        theta_idxs = np.arange(len(ranges))[ranges != 0]
+        thetas = angle_min + angle_inc * theta_idxs
+        range_rates = self.velocity * np.cos(thetas)
+        ttcs = ranges[ranges != 0][range_rates > range_rate_min]/range_rates[range_rates > range_rate_min]
+
+        if ttcs.size > 0 and ttcs.min() < self.tbb:
+            ack = AckermannDriveStamped()
+            ack.drive.speed = 0.0
+            self.pub_drive.publish(ack)
+            print(f'Emergency Brake Activated (due to TTC = {ttcs.min():.4f} secs)')
+
 
 def main(args=None):
-    rclpy.init(args=args)
-    print("Safety Initialized")
-    safety_node = SafetyNode()
-    rclpy.spin(safety_node)
+    """
+    Called when script is ran.
 
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
+    Initializes Ros2 client library, creates instance of SafetyNode, keeps the node alive,
+    and when the node is no longer in use, destroys the node and shuts down the Ros2 client library.
+    """
+    rclpy.init(args=args)
+    safety_node = SafetyNode()
+    print(f'Safety Node Initialized')
+    rclpy.spin(safety_node)
     safety_node.destroy_node()
     rclpy.shutdown()
-
 
 
 if __name__ == '__main__':
