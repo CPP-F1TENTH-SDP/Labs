@@ -78,15 +78,18 @@ class SafetyNode(Node):
         range_rate_min: The minimum value any range_rate can be to calculate ttcs. Removes problems due to dividing
                         by numbers very close to zero.
         """
-        ranges = np.array(scan_msg.ranges)
+        ranges_temp = np.array(scan_msg.ranges) #generate a temporary array of range values from the scan messages
         range_min = scan_msg.range_min
         range_max = scan_msg.range_max
         angle_min = scan_msg.angle_min
         angle_inc = scan_msg.angle_increment
         range_rate_min = 1e-4
 
-        ranges = np.where((ranges < range_min) | (ranges > range_max) | np.isnan(ranges) | np.isinf(ranges), 0, ranges)
-        theta_idxs = np.arange(len(ranges))[ranges != 0]
+        #Changed Jordan's vectorization to change all non-desired values to -1. Created a new array to match the size of theta_idxs.  This is because we still need zero values so we cannot ignore them
+        
+        ranges_temp = np.where((ranges_temp < range_min) | (ranges_temp > range_max) | np.isnan(ranges_temp) | np.isinf(ranges_temp), -1, ranges_temp) 
+        ranges = ranges_temp[ranges_temp != -1]
+        theta_idxs = np.arange(len(ranges_temp))[ranges_temp != -1]
         thetas = angle_min + angle_inc * theta_idxs
         range_rates = self.velocity * np.cos(thetas)
         ttcs = ranges[ranges != 0][range_rates > range_rate_min]/range_rates[range_rates > range_rate_min]
