@@ -82,7 +82,7 @@ class WallFollow(Node):
         error = dist - current_dist # prefered_dist - current_dist
         # If we simply use the current distance to the wall, we might end up turning too late, and the car may crash. 
         # Therefore, we must look to the future and project the car ahead by a certain lookahead distance
-        future_error = dist - current_dist + self.lookahead_dist * np.sin(alpha) #future_error = dist - current_dist+lookahead_dist*sin(alpha)
+        future_error = error + self.lookahead_dist * np.sin(alpha) #future_error = dist - current_dist+lookahead_dist*sin(alpha)
         self.prev_error = C_dist -D_dist
         self.error = future_error
         self.integral = -self.velocity * np.sin(alpha)
@@ -141,25 +141,20 @@ class WallFollow(Node):
         # range_rate = speed * cos(theta)
         # angle min=-2.35 max=2.35 in radians
         # angle incraments by something
-        range_temp = np.array([], dtype=np.float32)
-        range_temp = scan_msg.ranges
-        range_data = np.array([], dtype=np.float32) # meters
-        theta = np.array([], dtype=np.float32) # degrees
-
+        ranges_temp = np.array(scan_msg.ranges)
         range_min = scan_msg.range_min
-        range_max = scan_msg.range_max + 0.1
-        range_nan = np.isnan(range_temp)
-        range_inf = np.isinf(range_temp)
-        
-        for i in range(len(range_temp)): 
-            if range_temp[i] < range_min or range_temp[i] > range_max or range_nan[i] == True or range_inf[i] == True:
-                pass
-            else:
-                range_data = np.append(range_data, [range_temp[i]]) # m
-                theta = np.append(theta, [(scan_msg.angle_min + i * scan_msg.angle_increment)]) 
+        range_max = scan_msg.range_max
+        angle_min = scan_msg.angle_min
+        angle_inc = scan_msg.angle_increment
+        range_rate_min = 1e-4
+
+        ranges_temp = np.where((ranges_temp < range_min) | (ranges_temp > range_max) | np.isnan(ranges_temp) | np.isinf(ranges_temp), -1, ranges_temp)
+        ranges = ranges_temp[ranges_temp != -1]
+        theta_idxs = np.arange(len(ranges_temp))[ranges_temp != -1]
+        thetas = angle_min + angle_inc * theta_idxs
 
         # TODO: replace with error calculated by get_error()
-        error = self.get_error(range_data, theta, self.dist) 
+        error = self.get_error(ranges, thetas, self.dist) 
         
         self.pid_control(error) # TODO: actuate the car with PID
 
