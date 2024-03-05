@@ -92,7 +92,7 @@ class SafetyNode(Node):
         theta_idxs = np.arange(len(ranges_temp))[ranges_temp != -1]
         thetas = angle_min + angle_inc * theta_idxs
         range_rates = self.velocity * np.cos(thetas)
-        ttcs = ranges[ranges != 0][range_rates > range_rate_min]/range_rates[range_rates > range_rate_min]
+        ttcs = ranges[range_rates > range_rate_min] / range_rates[range_rates > range_rate_min]
 
         if ttcs.size > 0 and ttcs.min() < self.tbb:
             ack = AckermannDriveStamped()
