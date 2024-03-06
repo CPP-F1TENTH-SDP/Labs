@@ -5,7 +5,7 @@ Welcome to Cal Poly Pomona's F1TENTH SDP Group. This is where we posted our code
 ## Labs
 The original lab assignments are from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo).
 Each of the labs correspond to each respective file that we work on and corresponds to the F1TENTH project. 
-There are 9 labs in total.
+Currently, there are 9 labs that we have worked on so far. 
 
 ### Lab 1: Introduction to ROS2 
 This is where you'll install and initalize the F1TENTH simulation based on Docker Desktop. 
@@ -19,19 +19,27 @@ This is where we design a file so that the driving vehicle will be able to follo
 
 ### Lab 4: Gap Follow 
 This is where we design a file in order for the vehicle to avoid obstacles while following a centerpoint via Lab 3.
+As of March 6, 2024, this lab is in WIP. 
 
 ### Lab 5: Scanning 
 This lab is meant to allow the vehicle to run itself without a map. 
 As of March 4, 2024, we'll not be able to conduct this lab as it requires a camera and we don't have such camera on our F1TENTH vehicle.
 
 ### Lab 6: Pure Pursuit 
-The lab is meant to greatly improve the vehicle's speed efficiency by picking and updating a goalpoint and following that goalpoint.
+This lab is meant to greatly improve the vehicle's speed efficiency by picking and updating a goalpoint and following that goalpoint.
+As of March 6, 2024, this lab is WIP. 
 
-### Lab 7
+### Lab 7: Motion Planning 
+This lab is meant to provide the vehicle with some key algorithms in a one-on-one race with another vehicle. 
+As of March 6, 2024, this lab has not been started. 
 
-### Lab 8 
+### Lab 8: Computer Vision 
+This lab's purpose is to implement the F1TENTH's camera system into our existing self-autonomous system. 
+As of March 6, 2024, this lab has not been started, and requires a camera. 
+As our F1TENTH vehicle doesn't have a camera, it's unlikely that we'll be able to conduct this lab. 
 
-### Lab 9 
+### Lab 9: Model Predictive Control 
+Related to control systems, this lab is meant to predict the vehicle's future state. 
 
 
 ## F1TENTH Gym ROS - Install Guide
