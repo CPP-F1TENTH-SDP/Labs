@@ -34,18 +34,18 @@ This lab is meant to provide the vehicle with some key algorithms in a one-on-on
 As of March 6, 2024, this lab has not been started. 
 
 ### Lab 8: Computer Vision 
-This lab's purpose is to implement the F1TENTH's camera system into our existing self-autonomous system.\ 
+This lab's purpose is to implement the F1TENTH's camera system into our existing self-autonomous system.\
 As of March 6, 2024, this lab has not been started, and requires a camera.\
 As our F1TENTH vehicle doesn't have a camera, it's unlikely that we'll be able to conduct this lab. 
 
 ### Lab 9: Model Predictive Control 
-Related to control systems, this lab is meant to predict the vehicle's future state. \
+Related to control systems, this lab is meant to predict the vehicle's future state.\
 As of March 6, 2024, this lab has not been started. 
 
 
 ## F1TENTH Gym ROS - Install Guide
-The install/launch guide is [here](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/F1TENTH-Gym-ROS-%E2%80%90-Install-Guide).
+The install/launch guide can be found [here](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/F1TENTH-Gym-ROS-%E2%80%90-Install-Guide).
 
 
 ## Node Launch
-The node launch guide is [here](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node-Launch).
+The node launch guide can be found [here](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node-Launch).
