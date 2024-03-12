@@ -20,9 +20,28 @@ class WallFollow(Node):
         self.pub_drive = self.create_publisher(AckermannDriveStamped, drive_topic, 1)
 
         # TODO: set PID gains
-        self.kp = 0.255
-        self.ki = 1.115
-        self.kd = -0.028
+
+        """
+        The purpose of the proportional, is to have a large immediate reaction on the output to bring the process value close to the set point. 
+        As the error becomes less, the influence of the proportional value on the output becomes less.
+        """
+
+        self.kp = 0.255 #Proportional Gain
+
+        """
+        The Integral is calculated by multiplying the I-Gain, by the error, then multiplying this by the cycle time of the controller 
+        (how often the controller performs the PID calculation) and continuously accumulating this value as the “total integral”.
+        """
+
+        self.ki = -0.028 #Integral gain
+
+        """
+        The derivative is calculated by multiplying the D-Gain by the ramp rate of the process value. 
+        The purpose of the derivative is to “predict” where the process value is going, and bias the output in the opposite direction of the 
+        proportional and integral, to hopefully prevent the controller from over-shooting the set point if the ramp rate is to fast.
+        """
+
+        self.kd = 1.115 #Derivative Gain
         
         # TODO: store history
         self.error = 0
@@ -32,9 +51,13 @@ class WallFollow(Node):
 
         # TODO: store any necessary values you think you'll need
         self.dist = 0.8 # distance you want from wall in meters
+        """
+        We cannot only use a current distance from an object because depending on the speed of the car and the distance
+        it may be too late to turn so we utilize a distance ahead of the car to perform calculations
+        """
         self.lookahead_dist = 0.3 # future dist in meters used for calculations
-        self.A_angle  = 50 * np.pi/180# an angle that is 0-70 degree away from b
-        self.B_angle  = 90 * np.pi/180# -90 degree from right, 90 degree for left
+        self.A_angle  = 50 * np.pi/180 #The a-angle is anything between 0 to 70 degrees away from b, this is largely a calibration value
+        self.B_angle  = 90 * np.pi/180 #The b-angle is 90 degrees from both the left and right sides of the car, this is also a calibration value
 
     def get_range(self, range_data, angle_data, angle):
         """
@@ -57,7 +80,7 @@ class WallFollow(Node):
 
         return range_data[index] 
 
-    def get_error(self, range_data, angle_data, dist):
+    def get_error(self, range_data, angle_data, dist): # Data is obtained from scan_callback method; refer to lab 2 for how this information is gathered.
         """
         Calculates the error to the wall. Follow the wall to the left (going counter clockwise in the Levine loop). You potentially will need to use get_range()
 
@@ -71,29 +94,36 @@ class WallFollow(Node):
         """
         
         #TODO:implement        
-        A_dist = self.get_range(range_data, angle_data, self.A_angle)
-        B_dist = self.get_range(range_data, angle_data, self.B_angle)
+        A_dist = self.get_range(range_data, angle_data, self.A_angle) #Calculate the distance from the wall utilizing the A-angle (We have chosen 50 degrees from the b-angle)
+        B_dist = self.get_range(range_data, angle_data, self.B_angle) #Calculate the distance from the wall utilizing the B-angle (perpendicular from the car)
         C_dist = self.get_range(range_data, angle_data, 30 * np.pi/180)
         D_dist = self.get_range(range_data, angle_data, -30 * np.pi/180)
-        theta = self.B_angle - self.A_angle
+
+        theta = self.B_angle - self.A_angle #Angle between the radar scan between our "B and A-Angles"
         
-        alpha = np.arctan((A_dist * np.cos(theta) - B_dist) / (A_dist * np.sin(theta))) #alpha = arctan((A_dist*cos(theta)-B_dist)/(A_dist*sin(theta)))
-        current_dist = B_dist * np.cos(alpha) #current_dist = B_dist*cos(alpha)
-        error = dist - current_dist # prefered_dist - current_dist
+        alpha = np.arctan((A_dist * np.cos(theta) - B_dist) / (A_dist * np.sin(theta))) #Alpha angle is the angle between the B-Angle (perpendicular from car) 
+                                                                                        #and the ray from the wall to the car **PERPENDICULAR TO THE WALL**
+        
+        current_dist = B_dist * np.cos(alpha) #We calculate the distance of the car perpendicular to the wall
+        error = dist - current_dist # e(t) [error term] is calculated using our preferred distance to the wall (0.8 meters defined in the constructor) and subtracting the current distance
+        
         # If we simply use the current distance to the wall, we might end up turning too late, and the car may crash. 
         # Therefore, we must look to the future and project the car ahead by a certain lookahead distance
-        future_error = error + self.lookahead_dist * np.sin(alpha) #future_error = dist - current_dist+lookahead_dist*sin(alpha)
-        self.prev_error = C_dist -D_dist
-        self.error = future_error
-        self.integral = -self.velocity * np.sin(alpha)
-        print("error")
-        print(error)
-        print(self.integral)
-        print(self.prev_error)
+
+        future_dist = current_dist + self.lookahead_dist * np.sin(alpha) #In case simulation fails return "current_dist" to "error" value
+        #future_error = current_dist + self.lookahead_dist * np.sin(alpha) #Use this value in case the above fails
+
+        #self.integral = C_dist - D_dist
+        self.integral = self.dist - current_dist #Delete this if anything janky happens
+
+        #self.error = future_error #Uncomment if code fails
+        self.prev_error = -self.velocity * np.sin(alpha) #This is the calculation of the derivative value which determines the speed at which we approach the desired line
+
         #print(theta)
         #print(alpha)
         #print(np.cos(theta))
-        return future_error
+        return error #return value to "future_error" is necessary
+        #return future_error #Use this if above fails
 
     def pid_control(self, error):
         """
@@ -109,8 +139,6 @@ class WallFollow(Node):
 
         # pid controller
         angle = self.kp * error + self.ki * self.integral + self.kd * self.prev_error 
-        print("angle")
-        print(angle)
         # velocity based on angle
         if np.abs(angle) < 11 * np.pi/180:
             self.velocity = 1.5 # velocity should be 1.5 m/s for 0-10 degrees
