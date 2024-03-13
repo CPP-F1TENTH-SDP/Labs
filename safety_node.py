@@ -36,7 +36,7 @@ class SafetyNode(Node):
         super().__init__('safety_node')
 
         self.velocity = 0.0
-        self.tbb = 0.9
+        self.tbb = 0.9          # time before braking
 
         self.create_subscription(LaserScan, 'scan', self.scan_callback, 1)
         self.create_subscription(Odometry, 'ego_racecar/odom', self.odom_callback, 1)
