@@ -30,7 +30,10 @@ class ReactiveFollowGap(Node):
             1. Setting each value to the mean over some window
             2. Rejecting high values (eg. > 3m)
         """
-        ranges[ranges >= self.bubble_dist] = self.bubble_dist
+        try:
+            ranges[ranges >= self.bubble_dist] = self.bubble_dist
+        except Exception as e:
+            print(f"Error occurred during LiDAR preprocessing: {e}")
 
         return ranges
   
@@ -74,7 +77,7 @@ class ReactiveFollowGap(Node):
             elif free_space_ranges[-1] == self.bubble_dist:
                 temp[1] = j
                 if temp[1]-temp[0] > max_gap_index[1]-max_gap_index[0]:
-                    max_gap_index = temp    
+                    max_gap_index = temp
         
         print(max_gap_index)
         return max_gap_index
@@ -85,31 +88,30 @@ class ReactiveFollowGap(Node):
         Return index of best point in ranges
 	    Naive: Choose the furthest point within ranges and go there
         """
-        
         index = np.argmax(ranges[start_i:end_i])        # Finds the index that contains furthest value
         #index = int((end_i - start_i) / 2 + start_i)    # Returns the middle of the start and end index
         return index
 
     def lidar_callback(self, data):
         # Process each LiDAR scan as per the Follow Gap algorithm & publish an AckermannDriveStamped Message
-        
+
         # Process data for errors
         ranges_temp = np.array(data.ranges) # Generate a temporary array of range values from the scan messages
         range_min = data.range_min
         range_max = data.range_max
         angle_min = data.angle_min
         angle_inc = data.angle_increment
-        
+
         ranges_temp = np.where((ranges_temp < range_min) | (ranges_temp > range_max) | np.isnan(ranges_temp) | np.isinf(ranges_temp), -1, ranges_temp) 
         ranges = ranges_temp[ranges_temp != -1]
         theta_idxs = np.arange(len(ranges_temp))[ranges_temp != -1]
         thetas = angle_min + angle_inc * theta_idxs
-        
+
         proc_ranges = self.preprocess_lidar(ranges)
-        
+
         # Limit lidar ranges
-        index_1 = self.get_angle_index(thetas, 90 * np.pi/180)
-        index_2 = self.get_angle_index(thetas, -90 * np.pi/180)
+        index_1 = self.get_angle_index(thetas, np.radians(90))
+        index_2 = self.get_angle_index(thetas, np.radians(-90))
 
         # Find closest point to LiDAR
 
@@ -123,13 +125,13 @@ class ReactiveFollowGap(Node):
 
         # Velocity based on angle
         velocity = 0.0
-        if np.abs(thetas[best_point_index + index_2]) < 11 * np.pi/180:
+        if np.abs(thetas[best_point_index + index_2]) < np.radians(11):
             velocity = 1.5          # Velocity should be 1.5 m/s for 0-10 degrees
-        elif np.abs(thetas[best_point_index + index_2]) < 21 * np.pi/180:
+        elif np.abs(thetas[best_point_index + index_2]) < np.radians(21):
             velocity = 1.0          # Velocity should be 1.0 m/s for 10-20 degrees
         else:
             velocity = 0.5          # Velocity should be 0.5 m/s otherwise
-        
+
         # Publish Drive message
         drive_msg = AckermannDriveStamped()
         drive_msg.drive.steering_angle = thetas[best_point_index + index_2]
