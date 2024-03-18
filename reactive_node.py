@@ -16,10 +16,10 @@ class ReactiveFollowGap(Node):
         lidarscan_topic = '/scan'
         drive_topic = '/drive'
 
-        # Subscribe to LIDAR
+        # TODO: Subscribe to LIDAR
         self.sub_scan = self.create_subscription(LaserScan, lidarscan_topic, self.lidar_callback, 1)
         
-        # Publish to drive
+        # TODO: Publish to drive
         self.pub_drive = self.create_publisher(AckermannDriveStamped, drive_topic, 1)
 
         self.bubble_dist = 2.0
