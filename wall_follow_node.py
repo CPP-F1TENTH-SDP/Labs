@@ -56,8 +56,8 @@ class WallFollow(Node):
         it may be too late to turn so we utilize a distance ahead of the car to perform calculations
         """
         self.lookahead_dist = 0.3 # future dist in meters used for calculations
-        self.A_angle  = 30 * np.pi/180 #The a-angle is anything between 0 to 70 degrees away from b, this is largely a calibration value
-        self.B_angle  = 90 * np.pi/180 #The b-angle is 90 degrees from both the left and right sides of the car, this is also a calibration value
+        self.A_angle  = np.radians(30) #The a-angle is anything between 0 to 70 degrees away from b, this is largely a calibration value
+        self.B_angle  = np.radians(90) #The b-angle is 90 degrees from both the left and right sides of the car, this is also a calibration value
 
     def get_range(self, range_data, angle_data, angle):
         """
@@ -96,8 +96,8 @@ class WallFollow(Node):
         #TODO:implement        
         A_dist = self.get_range(range_data, angle_data, self.A_angle) #Calculate the distance from the wall utilizing the A-angle (We have chosen 50 degrees from the b-angle)
         B_dist = self.get_range(range_data, angle_data, self.B_angle) #Calculate the distance from the wall utilizing the B-angle (perpendicular from the car)
-        C_dist = self.get_range(range_data, angle_data, 30 * np.pi/180)
-        D_dist = self.get_range(range_data, angle_data, -30 * np.pi/180)
+        C_dist = self.get_range(range_data, angle_data, np.radians(30))
+        D_dist = self.get_range(range_data, angle_data, np.radians(-30))
 
         theta = self.B_angle - self.A_angle #Angle between the radar scan between our "B and A-Angles"
         
@@ -140,9 +140,9 @@ class WallFollow(Node):
         # pid controller
         angle = self.kp * error + self.ki * self.integral + self.kd * self.prev_error 
         # velocity based on angle
-        if np.abs(angle) < 11 * np.pi/180:
+        if np.abs(angle) < np.radians(11):
             self.velocity = 1.5 # velocity should be 1.5 m/s for 0-10 degrees
-        elif np.abs(angle) < 21 * np.pi/180:
+        elif np.abs(angle) < np.radians(21):
             self.velocity = 1.0 # velocity should be 1.0 m/s for 10-20 degrees
         else:
             self.velocity = 0.5 # velocity should be 0.5 m/s otherwise
