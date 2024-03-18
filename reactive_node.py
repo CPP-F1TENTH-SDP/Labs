@@ -56,31 +56,25 @@ class ReactiveFollowGap(Node):
 
         return index
 
-    def find_max_gap(self, free_space_ranges):
-        # Return the start index & end index of the max gap in free_space_ranges
-
-        max_gap_index = np.array([0,0])
-        temp = np.array([0,0])
-        for i in range(len(free_space_ranges)-1):
-            j = i+1
-            
-            if free_space_ranges[0] == self.bubble_dist:
-                pass
-            elif free_space_ranges[i] != self.bubble_dist and free_space_ranges[j] == self.bubble_dist:
-                temp[0] = j
-            elif free_space_ranges[i] == self.bubble_dist and free_space_ranges[j] == self.bubble_dist:
-                pass
-            elif free_space_ranges[i] == self.bubble_dist and free_space_ranges[j] != self.bubble_dist:
-                temp[1] = i
-                if temp[1]-temp[0] > max_gap_index[1]-max_gap_index[0]:
-                    max_gap_index = temp
-            elif free_space_ranges[-1] == self.bubble_dist:
-                temp[1] = j
-                if temp[1]-temp[0] > max_gap_index[1]-max_gap_index[0]:
-                    max_gap_index = temp
+    def find_max_gap(self,free_space_ranges):
+        # Convert the input list to a NumPy array
+        free_space_ranges = np.array(free_space_ranges)
         
-        print(max_gap_index)
-        return max_gap_index
+        # Value is equal to self.bubble_dist
+        bubble_eq = np.where(free_space_ranges == self.bubble_dist)[0]
+        
+        # Calculate the gaps between consecutive bubble indices
+        gap_lengths = np.diff(bubble_eq)
+        
+        # Find the index of the maximum gap
+        max_gap_index = np.argmax(gap_lengths)
+        
+        # Compute the start and end indices of the max gap
+        start_index = bubble_eq[max_gap_index]
+        end_index = bubble_eq[max_gap_index + 1]
+        
+        print(max_gap_index)  # Print the max_gap_index
+        return np.array([start_index, end_index])
 
     def find_best_point(self, start_i, end_i, ranges):
         """
@@ -88,8 +82,8 @@ class ReactiveFollowGap(Node):
         Return index of best point in ranges
 	    Naive: Choose the furthest point within ranges and go there
         """
-        index = np.argmax(ranges[start_i:end_i])        # Finds the index that contains furthest value
-        #index = int((end_i - start_i) / 2 + start_i)    # Returns the middle of the start and end index
+        #index = np.argmax(ranges[start_i:end_i])        # Finds the index that contains furthest value
+        index = int((end_i - start_i) / 2 + start_i)    # Returns the middle of the start and end index
         return index
 
     def lidar_callback(self, data):
