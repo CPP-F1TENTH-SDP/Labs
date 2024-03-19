@@ -96,8 +96,6 @@ class WallFollow(Node):
         #TODO:implement        
         A_dist = self.get_range(range_data, angle_data, self.A_angle) #Calculate the distance from the wall utilizing the A-angle (We have chosen 50 degrees from the b-angle)
         B_dist = self.get_range(range_data, angle_data, self.B_angle) #Calculate the distance from the wall utilizing the B-angle (perpendicular from the car)
-        C_dist = self.get_range(range_data, angle_data, np.radians(30))
-        D_dist = self.get_range(range_data, angle_data, np.radians(-30))
 
         theta = self.B_angle - self.A_angle #Angle between the radar scan between our "B and A-Angles"
         
@@ -113,8 +111,7 @@ class WallFollow(Node):
         future_dist = current_dist + self.lookahead_dist * np.sin(alpha) #In case simulation fails return "current_dist" to "error" value
         #future_error = current_dist + self.lookahead_dist * np.sin(alpha) #Use this value in case the above fails
 
-        #self.integral = C_dist - D_dist
-        self.integral = self.dist - current_dist #Delete this if anything janky happens
+        self.integral = self.dist - current_dist
 
         #self.error = future_error #Uncomment if code fails
         self.prev_error = -self.velocity * np.sin(alpha) #This is the calculation of the derivative value which determines the speed at which we approach the desired line
@@ -174,7 +171,6 @@ class WallFollow(Node):
         range_max = scan_msg.range_max
         angle_min = scan_msg.angle_min
         angle_inc = scan_msg.angle_increment
-        range_rate_min = 1e-4
 
         ranges_temp = np.where((ranges_temp < range_min) | (ranges_temp > range_max) | np.isnan(ranges_temp) | np.isinf(ranges_temp), -1, ranges_temp)
         ranges = ranges_temp[ranges_temp != -1]
