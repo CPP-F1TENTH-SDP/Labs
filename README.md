@@ -1,4 +1,4 @@
-# Cal Poly Pomona F1TENTH Project
+# Cal Poly Pomona F1TENTH Project: Labs and Simulation Install 
 Welcome to Cal Poly Pomona's F1TENTH SDP Group. This is where we posted our code related to the labs and lectures posted on the official F1TENTH GitHub [page](https://github.com/f1tenth). 
 
 
