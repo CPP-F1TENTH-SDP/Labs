@@ -5,21 +5,28 @@ Welcome to Cal Poly Pomona's F1TENTH SDP Group. This is where we posted our code
 ## Labs
 The original lab assignments are from [F1TENTH](https://github.com/f1tenth/f1tenth_labs_openrepo).
 Each of the labs correspond to each respective file that we work on and corresponds to the F1TENTH project. 
-Currently, there are 9 labs that we have worked on so far. 
+Currently, there are 9 labs that we either have worked on or will be working on in the future. 
 
 ### [Lab 1: Introduction to ROS2](https://github.com/f1tenth/f1tenth_lab1_template/tree/24f7320ebf1b9a325a2039d4208204da4454d1ab)
-This is where you'll install and initalize the F1TENTH simulation based on Docker Desktop. 
-See the **[F1TENTH Gym ROS - Install Guide](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/F1TENTH-Gym-ROS-%E2%80%90-Install-Guide)** for more information.
+This is where you'll install and initalize the F1TENTH simulation based on Docker Desktop.
+Please see the **[F1TENTH Gym ROS - Install Guide](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/F1TENTH-Gym-ROS-%E2%80%90-Install-Guide)** for more information.
 
 ### [Lab 2: Safety Node](https://github.com/f1tenth/f1tenth_lab2_template/tree/b49965fb833221c6ba0f83666838c6f9f9971438)
-This is where we create a file in which the driving vehicle will automatically stop before it crashes when driving.
+This is where we create a file in which the driving vehicle will automatically stop before it crashes when driving.\
+This lab is **complete** as of April 22, 2024.
+Please see the **[Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node-Launch#lab-2---safety_node)** for more information on how to install and run Lab 2. 
 
 ### [Lab 3: Wall Follow](https://github.com/f1tenth/f1tenth_lab3_template/tree/62a7a3d687d00ba1dd25cf7025c13a623bafdb5b)
-This is where we design a file so that the driving vehicle will be able to follow along a centerpoint when between two walls.
+This is where we design a file so that the driving vehicle will be able to follow along a centerpoint when between two walls.\
+This lab is **complete** as of April 22, 2024. 
+Please see the **[Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node-Launch#lab-3---wall_follow)** for more information on how to install and run Lab 3. 
 
 ### [Lab 4: Gap Follow](https://github.com/f1tenth/f1tenth_lab4_template/tree/22a1c490759f05d822efae10d353415fbb187b24)
 This is where we design a file in order for the vehicle to avoid obstacles while following a centerpoint via Lab 3.\
-As of March 6, 2024, this lab is in WIP. 
+This lab is **incomplete** as of April 22, 2024.
+
+If you wish to help contribute to this lab, then please see the **[Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node-Launch#lab-4---gap_follow)** for \
+more information on how to install and run Lab 4. 
 
 ### [Lab 5: Scanning](https://github.com/f1tenth/f1tenth_lab5_template/tree/189bc1160edd6a265b419dd9eccf1b8739530047)
 This lab is meant to allow the vehicle to run itself without a map.\
