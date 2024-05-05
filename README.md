@@ -57,4 +57,5 @@ The install/launch guide can be found [here](https://github.com/CPP-F1TENTH-SDP/
 ## Node Launch
 The node launch guide can be found [here](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node-Launch).
 
-## ROS2 Documentation and How-To can be found [here](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/ROS2--How%E2%80%90To%E2%80%90Use)
+## ROS2 Documentation and How-To 
+Information on ROS2 and a guide can be found [here](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/ROS2--How%E2%80%90To%E2%80%90Use)
