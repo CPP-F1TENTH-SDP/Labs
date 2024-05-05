@@ -59,3 +59,5 @@ The node launch guide can be found [here](https://github.com/CPP-F1TENTH-SDP/Lab
 
 ## ROS2 Documentation and How-To 
 Information on ROS2 and a guide can be found [here](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/ROS2--How%E2%80%90To%E2%80%90Use)
+
+## Jetson Setup Guide (Including ROS2 and Docker) can be found [here](https://github.com/CPP-F1TENTH-SDP/Hardware/wiki)
