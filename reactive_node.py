@@ -15,132 +15,172 @@ class ReactiveFollowGap(Node):
         # Topics & Subs, Pubs
         lidarscan_topic = '/scan'
         drive_topic = '/drive'
-
+        self.trim_value = 0 #self.desiredGapLengthMinimum // 2
         # TODO: Subscribe to LIDAR
         self.sub_scan = self.create_subscription(LaserScan, lidarscan_topic, self.lidar_callback, 1)
         
         # TODO: Publish to drive
         self.pub_drive = self.create_publisher(AckermannDriveStamped, drive_topic, 1)
 
-        self.bubble_dist = 2.0
+        self.rejection_dist = 3
+        self.bubble_dist = 2
+        self.angle = 0
 
     def preprocess_lidar(self, ranges):
         """ Preprocess the LiDAR scan array. Expert implementation includes:
             1.Setting each value to the mean over some window
             2.Rejecting high values (eg. > 3m)
         """
-        ranges[ranges >= self.bubble_dist] = self.bubble_dist
+        convolution_len = 3
+        new_ranges = np.convolve(ranges, np.ones(convolution_len) / convolution_len, mode = 'same')
+        #Convolution of the LiDAR array with an array of "ones" to smoothen out the signal
 
-        return ranges
+        new_ranges[new_ranges > self.rejection_dist] = 0
+        #Rejection of values greater than a distance of a pre-defined value
+
+        return new_ranges
     
-    def get_angle_index(self, angle_data, angle):
+    def get_angle_index(self, angle_data):
         """
         Simple helper to return the corresponding range measurement at a given angle. 
 
         Args:
             angle_data: single angle array from the LiDAR
-            angle: desiered angle
+            angle: desireed angle
 
         Returns:
             index of desired angle
 
         """
         # As the angle in angle_data are not perfect, we can only choose the angles closest to what we want
-        diff_array = np.absolute(angle_data - angle) #calculates difference of every value in angle_data to angle
-        np.absolute(diff_array) # Calculates the absolute value element-wise so that negatives are not the min
-        index = diff_array.argmin() #picks index of lowest value
+        index = np.argmin(np.abs(angle_data - self.angle)) # find the index closest to the desired angle
 
         return index 
 
+    def find_closest_point(self, proc_ranges):
+        """Find the closest point"""
+        closest_index = np.argmin(proc_ranges)
+        print("Closest Index:", closest_index)
+        return closest_index
+
+    def closest_point_bubble(self, proc_ranges, closest_point):
+        """Draw a safety bubble around the closest point to our car"""
+
+        counter = 0
+
+        # Extract the coordinates of the closest point
+        closest_index = closest_point
+
+        # Define the radius of the safety bubble
+        safety_radius = self.bubble_dist
+
+        # Iterate through the LiDAR processed ranges
+        for i in range(len(proc_ranges)):
+            # Check if the current point is within the safety bubble radius of the closest point
+            if abs(i - closest_index) <= safety_radius:
+                # Mark this point as within the safety bubble by setting its range to 0
+                counter = counter + 1
+                proc_ranges[i] = 0  # or you can use another value to mark it differently
+
+        print("Number of points inside of bubble: ", counter)
+        return proc_ranges
+
+
     def find_max_gap(self, free_space_ranges):
-        """ Return the start index & end index of the max gap in free_space_ranges
-        """
-        max_gap_index = np.array([0,0])
-        temp = np.array([0,0])
-        for i in range(len(free_space_ranges)-1):
-            j = i+1
-            
-            if free_space_ranges[0] == self.bubble_dist:
-                pass
-            elif free_space_ranges[i] != self.bubble_dist and free_space_ranges[j] == self.bubble_dist:
-                temp[0] = j
-            elif free_space_ranges[i] == self.bubble_dist and free_space_ranges[j] == self.bubble_dist:
-                pass
-            elif free_space_ranges[i] == self.bubble_dist and free_space_ranges[j] != self.bubble_dist:
-                temp[1] = i
-                if temp[1]-temp[0] > max_gap_index[1]-max_gap_index[0]:
-                    max_gap_index = temp
-            elif free_space_ranges[-1] == self.bubble_dist:
-                temp[1] = j
-                if temp[1]-temp[0] > max_gap_index[1]-max_gap_index[0]:
-                    max_gap_index = temp
-        print(max_gap_index)
-        return max_gap_index
+        """Return the start index & end index of the max gap in free_space_ranges"""
+        max_gap_start = 0
+        max_gap_end = 0
+        max_gap_length = 0
+        current_start = 0
+        current_length = 0
+
+        for i in range(len(free_space_ranges)):
+            if free_space_ranges[i] > 0:
+                if current_length == 0:
+                    current_start = i
+                current_length += 1
+            else:
+                if current_length > max_gap_length:
+                    max_gap_length = current_length
+                    max_gap_start = current_start
+                    max_gap_end = i - 1
+                current_length = 0
+
+        # Check again at the end of the loop
+        if current_length > max_gap_length:
+            max_gap_length = current_length
+            max_gap_start = current_start
+            max_gap_end = len(free_space_ranges) - 1
+
+        print("Best Gap: ")
+        print(max_gap_start)
+        print(" - ")
+        print(max_gap_end)
+        return [max_gap_start, max_gap_end]
+    
     
     def find_best_point(self, start_i, end_i, ranges):
-        """Start_i & end_i are start and end indicies of max-gap range, respectively
-        Return index of best point in ranges
-	    Naive: Choose the furthest point within ranges and go there
-        """
-        #index = np.argmax(ranges[start_i:end_i]) #finds the index that contains max value
-        index = int((end_i - start_i) / 2 + start_i) #returnes the middle of the start and end index
-        return index
+        """Find the best point index within the specified range [start_i, end_i] in the 'ranges' array"""
+        if start_i > end_i or start_i < 0 or end_i >= len(ranges):
+            # Handle invalid range parameters
+            return None  # or raise ValueError("Invalid range specified")
+
+        # Extract the subarray of interest
+        sub_ranges = ranges[start_i:end_i + 1]
+
+        # Find the index of the point with the maximum value in the subarray
+        best_point_index = np.argmax(sub_ranges) + start_i
+
+        return best_point_index
 
     def lidar_callback(self, data):
         """ Process each LiDAR scan as per the Follow Gap algorithm & publish an AckermannDriveStamped Message
         """
         #Process data for errors
-        range_temp = np.array([], dtype=np.float32)
-        range_temp = data.ranges
-        ranges = np.array([], dtype=np.float32) # meters
-        angles = np.array([], dtype=np.float32) # radians
-
+        ranges_temp = np.array(data.ranges)
         range_min = data.range_min
-        range_max = data.range_max + 0.1
-        range_nan = np.isnan(range_temp)
-        range_inf = np.isinf(range_temp)
-        
-        for i in range(len(range_temp)): 
-            if range_temp[i] < range_min or range_temp[i] > range_max or range_nan[i] == True or range_inf[i] == True:
-                pass
-            else:
-                ranges = np.append(ranges, [range_temp[i]]) # m
-                angles = np.append(angles, [(data.angle_min + i * data.angle_increment)]) # radians 
-        
+        range_max = data.range_max + 1
+        angle_min = data.angle_min
+        angle_inc = data.angle_increment
+
+        ranges_temp = np.where((ranges_temp < range_min) | (ranges_temp > range_max) | np.isnan(ranges_temp) | np.isinf(ranges_temp), -1, ranges_temp)
+        ranges = ranges_temp[ranges_temp != -1]
+        theta_idxs = np.arange(len(ranges_temp))[ranges_temp != -1]
+        thetas = angle_min + angle_inc * theta_idxs
+
         proc_ranges = self.preprocess_lidar(ranges)
-        
-        #limit lidar ranges 
-        index_1 = self.get_angle_index(angles, 90 * np.pi/180)
-        index_2 = self.get_angle_index(angles, -90 * np.pi/180)
 
         # TODO:
         #Find closest point to LiDAR
-
+        closest_point = self.find_closest_point(proc_ranges)
         #Eliminate all points inside 'bubble' (set them to zero) 
+        proc_ranges = self.closest_point_bubble(proc_ranges, closest_point)
 
         #Find max length gap 
-        max_lenght_gap_index = self.find_max_gap(proc_ranges[index_2:index_1])
+        max_length_gap_index = self.find_max_gap(proc_ranges)
+        print("Max Gap Index 0:", max_length_gap_index[0])
+        print("Max Gap Index 1:", max_length_gap_index[1])
         #Find the best point in the gap 
-        best_point_index = self.find_best_point(max_lenght_gap_index[0], max_lenght_gap_index[1], ranges)
+        best_point_index = self.find_best_point(max_length_gap_index[0], max_length_gap_index[1], ranges)
+
         # velocity based on angle
         velocity = 0.0
-        if np.abs(angles[best_point_index + index_2]) < 11 * np.pi/180:
+        if np.abs(thetas[best_point_index]) < 11 * np.pi/180:
             velocity = 1.5 # velocity should be 1.5 m/s for 0-10 degrees
-        elif np.abs(angles[best_point_index + index_2]) < 21 * np.pi/180:
+        elif np.abs(thetas[best_point_index]) < 21 * np.pi/180:
             velocity = 1.0 # velocity should be 1.0 m/s for 10-20 degrees
         else:
             velocity = 0.5 # velocity should be 0.5 m/s otherwise
-        
-        #Publish Drive message
+        #velocity = 0.0
+        # #Publish Drive message
         drive_msg = AckermannDriveStamped()
-        drive_msg.drive.steering_angle = angles[best_point_index + index_2]
+        drive_msg.drive.steering_angle = thetas[best_point_index]
         drive_msg.drive.steering_angle_velocity = 0.0 #Zero means change the steering angle as quickly as possible
         drive_msg.drive.speed = velocity
         self.pub_drive.publish(drive_msg)
-
-        print("stuff")
-        print(angles[best_point_index + index_2])
-        
+        #print("Angle Theta: ", thetas[best_point_index + 50])
+        # print("stuff")
+        # print(thetas[best_point_index + index_2])
 
 def main(args=None):
     rclpy.init(args=args)
