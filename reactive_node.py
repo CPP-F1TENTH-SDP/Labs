@@ -22,7 +22,7 @@ class ReactiveFollowGap(Node):
         # TODO: Publish to drive
         self.pub_drive = self.create_publisher(AckermannDriveStamped, drive_topic, 1)
 
-        self.rejection_dist = 4
+        self.rejection_dist = 5
         self.bubble_dist = 25
         self.min_gap_length = 10
 
@@ -44,7 +44,6 @@ class ReactiveFollowGap(Node):
         """Find the closest point"""
         proc_ranges_no_zeroes = np.where(proc_ranges == 0, np.inf, proc_ranges)
         closest_index = np.argmin(proc_ranges_no_zeroes)
-        print("Closest Index:", closest_index)
         return closest_index
 
     def closest_point_bubble(self, proc_ranges, closest_point):
@@ -68,18 +67,19 @@ class ReactiveFollowGap(Node):
                     current_start = i
                 current_length += 1
             else:
-                if current_length > max_gap_length:
+                if current_length > max_gap_length and current_length > self.min_gap_length:
                     max_gap_length = current_length
                     max_gap_start = current_start
                     max_gap_end = i - 1
                 current_length = 0
 
         # Check again at the end of the loop
-        if current_length > max_gap_length:
+        if current_length > max_gap_length and current_length > self.min_gap_length:
             max_gap_length = current_length
             max_gap_start = current_start
             max_gap_end = len(free_space_ranges) - 1
 
+        print("Indexes of Gap: ", max_gap_start, ", ", max_gap_end)
         return [max_gap_start, max_gap_end]
     
     
@@ -91,6 +91,7 @@ class ReactiveFollowGap(Node):
         sub_ranges = ranges[start_i:end_i + 1]
         # Aim for the point with the maximum distance in the subarray
         best_point_index = np.argmax(sub_ranges) + start_i
+        print("Best Point: ", best_point_index)
 
         return best_point_index
 
@@ -136,17 +137,17 @@ class ReactiveFollowGap(Node):
         # Velocity based on angle
         best_angle = thetas[best_point_index]
         if np.abs(best_angle) < min_steering_angle:
-            velocity = 1.5  # 1.5 m/s for 0-10 degrees
+            self.velocity = 1.5  # 1.5 m/s for 0-10 degrees
         elif np.abs(best_angle) < max_steering_angle:
-            velocity = 1.0  # 1.0 m/s for 10-20 degrees
+            self.velocity = 1.0  # 1.0 m/s for 10-20 degrees
         else:
-            velocity = 0.5  # 0.5 m/s otherwise
+            self.velocity = 0.3  # 0.5 m/s otherwise
           
         # Publish Drive message
         drive_msg = AckermannDriveStamped()
         drive_msg.drive.steering_angle = best_angle
         drive_msg.drive.steering_angle_velocity = 0.0  # Change steering angle as quickly as possible
-        drive_msg.drive.speed = velocity
+        drive_msg.drive.speed = self.velocity
         self.pub_drive.publish(drive_msg)
 
 def main(args=None):
