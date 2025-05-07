@@ -23,7 +23,7 @@ Please see the **[Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node
 
 ### [Lab 4: Gap Follow](https://github.com/f1tenth/f1tenth_lab4_template/tree/22a1c490759f05d822efae10d353415fbb187b24)
 This is where we design a file in order for the vehicle to avoid obstacles while following a centerpoint via Lab 3.\
-This lab is **incomplete** as of April 22, 2024.
+This lab is **complete but unoptimized** as of May 7, 2025.
 
 If you wish to help contribute to this lab, then please see the **[Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node-Launch#lab-4---gap_follow)** for \
 more information on how to install and run Lab 4. 
@@ -34,7 +34,8 @@ As of March 4, 2024, we'll not be able to conduct this lab as it requires a came
 
 ### [Lab 6: Pure Pursuit](https://github.com/f1tenth/f1tenth_lab6_template/tree/4a664036044b763b97c34e2018246772cf0699de)
 This lab is meant to greatly improve the vehicle's speed efficiency by picking and updating a goalpoint and following that goalpoint.\
-As of March 6, 2024, this lab is WIP. 
+As of March 7, 2025, this lab is complete. 
+Please see the **[Node Launch](https://github.com/CPP-F1TENTH-SDP/Labs/wiki/Node-Launch#lab-6---slam-and-pure-pursuit)** for more information on how to install and run Lab 6. 
 
 ### [Lab 7: Motion Planning](https://github.com/f1tenth/f1tenth_lab7_template/tree/0abac8b18db1f7078a973fc4057aed7cf64b7d97)
 This lab is meant to provide the vehicle with some key algorithms in a one-on-one race with another vehicle.\
